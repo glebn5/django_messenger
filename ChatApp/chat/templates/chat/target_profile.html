@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Профиль {{ target_user.username }}</title>
+</head>
+<body>
+    <h1>Профиль пользователя: {{ target_user.username }}</h1>
+
+    {% if chat %}
+        <a href="{% url 'private_chat' chat.id %}">Перейти в чат с {{ target_user.username }}</a>
+    {% else %}
+        <p>Это ваш собственный профиль. Чат не нужен.</p>
+    {% endif %}
+</body>
+</html>

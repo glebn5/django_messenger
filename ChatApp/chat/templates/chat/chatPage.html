@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatPage</title>
+</head>
+<body>
+    <h1>Hello {{ request.user }}</h1>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'logout_user' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login_user' %}">Login</a>
+    {% endif %}
+
+    <h1>Все твои чаты</h1>
+    <ul>
+    {% for chat in chats %}
+        <li>
+        Чат с 
+        {% if chat.user_1 == request.user %}
+            {{ chat.user_2.username }}
+        {% else %}
+            {{ chat.user_1.username }}
+        {% endif %}
+        — <a href="{% url 'private_chat' chat.id %}">Перейти</a>
+        </li>
+    {% empty %}
+        <li>Нет чатов.</li>
+    {% endfor %}
+    </ul>
+
+
+
+    
+    
+</body>
+</html>
