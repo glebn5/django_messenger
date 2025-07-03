@@ -5,7 +5,7 @@ from .views import *
 
 urlpatterns = [
     path("", ChatsPage.as_view(), name = "chat_page"),
-    path("<str:room_name>/", room, name = 'room'),
+    path("room/<str:room_name>/", room, name = 'room'),
     path("auth/login/", views.LoginView.as_view(template_name="chat/login.html"), name="login_user"),
     path("logout/", LogoutView.as_view(), name = "logout_user"),
     path("main/", main_page, name = 'main_page'),

@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatPage</title>
-</head>
-<body>
-    <h1>Hello {{ request.user }}</h1>
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'logout_user' %}">Logout</a>
-    {% else %}
-        <a href="{% url 'login_user' %}">Login</a>
-    {% endif %}
-
+{% extends 'chat/header_template.html' %}
+{% block content %}
     <h1>Все твои чаты</h1>
     <ul>
     {% for chat in chats %}
@@ -30,9 +17,4 @@
     {% endfor %}
     </ul>
 
-
-
-    
-    
-</body>
-</html>
+{% endblock %}
