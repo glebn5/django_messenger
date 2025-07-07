@@ -110,26 +110,7 @@ def target_profile_view(request, target_username):
 
 
 
-    
-
-
-"""/chat/start/<target_user_id>/
-
-Проверяешь, что target_user существует.
-
-Сортируешь request.user и target_user по id.
-
-get_or_create чат для них двоих.
-
-Делаешь redirect на /chat/<chat_id>/.
-
-/chat/<chat_id>/
-
-Загружаешь чат.
-
-Проверяешь, что request.user — участник.
-
-Загружаешь сообщения.
-
-Отдаёшь в шаблон.
-"""
+def add_participant_in_group_view(request, group_name: str):
+    group, _ = RoomName.objects.get_or_create(name=group_name)
+    group.participant.add(request.user)
+    return redirect('room', room_name=group.name)
