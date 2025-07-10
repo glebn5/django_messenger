@@ -1,16 +1,28 @@
 {% extends 'chat/header_template.html' %}
 {% block content %}
-    <h1>Все твои чаты</h1>
+    <h2>Все твои приватные чаты</h2>
     <ul>
-    {% for chat in chats %}
+    {% for private_chat in private_chats %}
         <li>
         Чат с 
-        {% if chat.user_1 == request.user %}
-            {{ chat.user_2.username }}
+        {% if private_chat.user_1 == request.user %}
+            {{ private_chat.user_2.username }}
         {% else %}
-            {{ chat.user_1.username }}
+            {{ private_chat.user_1.username }}
         {% endif %}
-        — <a href="{% url 'private_chat' chat.id %}">Перейти</a>
+        — <a href="{% url 'private_chat' private_chat.id %}">Перейти</a>
+        </li>
+    {% empty %}
+        <li>Нет чатов.</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Все твои групповые чаты</h2>
+    <ul>
+    {% for group_chat in group_chats %}
+        <li style="display: flex;align-items: center;column-gap: 5px;">
+        Чат <h3>{{group_chat.name}}</h3>
+        — <a href="{% url 'room' group_chat.name %}">Перейти</a>
         </li>
     {% empty %}
         <li>Нет чатов.</li>

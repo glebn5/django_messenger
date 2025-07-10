@@ -4,7 +4,8 @@ from django.contrib.auth.views import LogoutView
 from .views import *
 
 urlpatterns = [
-    path("", ChatsPage.as_view(), name = "chat_page"),
+    path("", chat_page, name = "chat_page"),
+    path("room/<str:room_name>/join/", add_participant_in_group_view, name = 'add_participant'),
     path("room/<str:room_name>/", room, name = 'room'),
     path("auth/login/", views.LoginView.as_view(template_name="chat/login.html"), name="login_user"),
     path("logout/", LogoutView.as_view(), name = "logout_user"),

@@ -10,19 +10,16 @@ from django.views.generic import ListView
 from django.db.models import Q
 
 # Create your views here.
-class ChatsPage(ListView):
-    model = PrivateChat
-    template_name = 'chat/chatPage.html'
-    context_object_name = 'chats'
     
-
-    def get_queryset(self):
-        user = self.request.user
-        print("Current user:", user, "ID:", user.id)
-        return PrivateChat.objects.filter(
-            Q(user_1=user) | Q(user_2=user)
-        )
+def chat_page(request):
+    user = request.user
+    private_chats = PrivateChat.objects.filter(Q(user_1=user) | Q(user_2=user))
+    group_chats = RoomName.objects.filter(participant=user)
     
+    return render(request, 'chat/chatPage.html', {
+        'private_chats': private_chats,
+        'group_chats': group_chats,
+    })      
 
 
 def room(request, room_name):
@@ -31,10 +28,12 @@ def room(request, room_name):
 
     room, _ = RoomName.objects.get_or_create(name=room_name)
     messages = GroupMessage.objects.filter(room_name=room).order_by('timestamp')
+    participants = room.participant.all()
 
     context = {
         "room_name": room.name,
         "messages": messages,
+        "participants": participants,
         }
     return render(request, 'chat/roomPage.html', context=context)
 
@@ -110,7 +109,7 @@ def target_profile_view(request, target_username):
 
 
 
-def add_participant_in_group_view(request, group_name: str):
-    group, _ = RoomName.objects.get_or_create(name=group_name)
-    group.participant.add(request.user)
-    return redirect('room', room_name=group.name)
+def add_participant_in_group_view(request, room_name: str):
+    room, _ = RoomName.objects.get_or_create(name=room_name)
+    room.participant.add(request.user)
+    return redirect('room', room_name=room.name)
