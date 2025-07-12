@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 
 # Create your models here.
 class RoomName(models.Model):
@@ -40,6 +40,13 @@ class PrivateMessage(models.Model):
 
     def __str__(self):
         return f"{self.author.username}: {self.content[:10]}"
+    
+
+class User(AbstractUser):
+    avatar = models.ImageField(upload_to='user/avatar/')
+    about_user = models.TextField(blank=True)
+    birthday = models.DateField()
+
 
 
 
