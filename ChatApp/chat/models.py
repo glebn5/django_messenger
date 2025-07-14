@@ -8,6 +8,9 @@ class RoomName(models.Model):
 
     def __str__(self):
         return self.name
+
+    def count_of_participants(self):
+        return self.participant.count()
     
 
 class PrivateChat(models.Model):
