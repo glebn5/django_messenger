@@ -1,15 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Профиль {{ target_user.username }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="{% static 'chat/style.css' %}">
 </head>
 <body>
-    <h1>Профиль пользователя: {{ target_user.username }}</h1>
 
-    {% if chat %}
-        <a href="{% url 'private_chat' chat.id %}">Перейти в чат с {{ target_user.username }}</a>
-    {% else %}
-        <p>Это ваш собственный профиль. Чат не нужен.</p>
-    {% endif %}
+    <header>
+        <h1>Профиль пользователя</h1>
+    </header>
+
+    <div class="profile-card">
+        <h1>Профиль пользователя: {{ target_user.username }}</h1>
+        <p>Имя: {{target_user.first_name}}</p>
+        <p>Фамилия: {{ target_user.last_name}}</p>
+        <p>День рождения: {{target_user.birthday|date:"d F Y"}}</p>
+        <img src="{{ target_user.avatar.url }}" alt="Аватар {{ target_user.username }}" width="50px">
+        <!-- Если фото не грузится, проверь urls (должно прибавляться staitc ... и load static в шаблоне)-->
+        <p>Обо мне: {{ target_user.about_user|linebreaksbr}}</p>
+
+        {% if chat %}
+            <a href="{% url 'private_chat' chat.id %}" class="button">Написать сообщение</a>
+        {% else %}
+            <p>Это ваш собственный профиль. Чат не нужен.</p>
+        {% endif %}
+
+        
+    </div>
+
 </body>
 </html>

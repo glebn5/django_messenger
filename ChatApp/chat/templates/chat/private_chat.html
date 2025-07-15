@@ -1,6 +1,8 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="{% static 'chat/style.css' %}">
     <title>Чат с {{ other_user.username }}</title>
 </head>
 <body>
@@ -14,7 +16,7 @@
     </div>
     <br>
     <input id="message-input" type="text" placeholder="Type your message" style="width: 400px;">
-    <button id="send-button">Send</button>
+    <button id="send-button">Отправить</button>
 
     <script>
         const private_id = "{{ chat.id }}";

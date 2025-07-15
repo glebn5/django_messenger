@@ -1,0 +1,113 @@
+/* Основные цвета */
+:root {
+    --primary-color: #0091ea;
+    --background-color: #fcffff;
+    --text-color: #333;
+    --border-radius: 8px;
+}
+
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Шапка */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* Контейнер страницы */
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+/* Блок сообщений */
+.chat-box {
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    height: 400px;
+    overflow-y: auto;
+    background: white;
+}
+
+/* Сообщение */
+.message {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-radius: var(--border-radius);
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+/* Свое сообщение */
+.message.self {
+    background-color: var(--primary-color);
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+/* Сообщение другого */
+.message.other {
+    background-color: #e1f5fe;
+}
+
+/* Форма отправки */
+.send-message {
+    display: flex;
+    margin-top: 15px;
+}
+
+.send-message input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    margin-right: 10px;
+    outline: none;
+}
+
+.send-message button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.send-message button:hover {
+    background-color: #007ac2;
+}
+
+/* Список чатов */
+.chat-list {
+    list-style: none;
+    padding: 0;
+}
+
+.chat-list li {
+    background: white;
+    border: 2px solid var(--primary-color);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+}
+
+.chat-list li a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: bold;
+}

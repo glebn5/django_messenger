@@ -7,7 +7,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import ListView
+from django.views.generic.detail import DetailView
 from django.db.models import Q
+from django.contrib.auth import get_user_model
 
 # Create your views here.
     
@@ -87,29 +89,27 @@ def private_chat(request, chat_id):
     return render(request, 'chat/private_chat.html', context)
 
 
-def target_profile_view(request, target_username):
-    if not request.user.is_authenticated:
-        return redirect("login_user")
-
-    target_user = get_object_or_404(User, username=target_username)
-
-    if target_user != request.user:
-        u1, u2 = sorted([request.user, target_user], key=lambda u: u.id)
-        chat, created = PrivateChat.objects.get_or_create(user_1=u1, user_2=u2)
-    else:
-        chat = None
-        
-
-    context = {
-        'target_user': target_user,
-        'chat': chat,
-    }
-    return render(request, 'chat/target_profile.html', context)
-
-
-
-
 def add_participant_in_group_view(request, room_name: str):
     room, _ = RoomName.objects.get_or_create(name=room_name)
     room.participant.add(request.user)
     return redirect('room', room_name=room.name)
+
+User = get_user_model()
+
+def profile_view(request, username):
+    if not request.user.is_authenticated:
+        return redirect("login_user")
+
+    user_profile = get_object_or_404(User, username=username)
+
+    # Если это НЕ текущий пользователь, проверить или создать приватный чат
+    chat = None
+    if user_profile != request.user:
+        u1, u2 = sorted([request.user, user_profile], key=lambda u: u.id)
+        chat, created = PrivateChat.objects.get_or_create(user_1=u1, user_2=u2)
+
+    context = {
+        'target_user': user_profile,
+        'chat': chat,
+    }
+    return render(request, 'chat/target_profile.html', context)

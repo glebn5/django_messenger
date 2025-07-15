@@ -12,7 +12,7 @@ urlpatterns = [
     path("main/", main_page, name = 'main_page'),
     path("auth/register/", Register.as_view(), name = 'register'),
 
-    path('profile/<str:target_username>/', target_profile_view, name='target_profile'),
+    path('profile/<str:username>/', profile_view, name='profile'),
     path('chat/<int:chat_id>/', private_chat, name='private_chat'),
 
 
