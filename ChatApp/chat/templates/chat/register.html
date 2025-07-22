@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'chat/header_template.html' %}
+{% block content %}
+
     <h1 class="title">Register</h1>
 
     <form method="POST" class="block-auth">
@@ -17,5 +12,5 @@
         <div class="form__block-submit"><input type="submit" value="Save"></div>
 
     </form>
-</body>
-</html>
+    <a href="{% url 'login_user' %}">Login</a>
+{% endblock %}

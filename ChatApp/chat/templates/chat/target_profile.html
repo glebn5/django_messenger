@@ -1,35 +1,30 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль пользователя</title>
-    <link rel="stylesheet" href="{% static 'chat/style.css' %}">
-</head>
-<body>
+{% extends 'chat/header_template.html' %}
+{% block content %}
 
     <header>
-        <h1>Профиль пользователя</h1>
+        <div class="flex">
+            {% if target_user.avatar.url != None %}
+                <img src="{{ target_user.avatar.url }}" alt="Аватар {{ target_user.username }}" class="avatar">
+                <!-- Если фото не грузится, проверь urls (должно прибавляться staitc ... и load static в шаблоне)-->
+            {% endif %}
+            <h1>{{target_user.username}}</h1>
+        </div>
+        
     </header>
 
     <div class="profile-card">
-        <h1>Профиль пользователя: {{ target_user.username }}</h1>
         <p>Имя: {{target_user.first_name}}</p>
         <p>Фамилия: {{ target_user.last_name}}</p>
         <p>День рождения: {{target_user.birthday|date:"d F Y"}}</p>
-        <img src="{{ target_user.avatar.url }}" alt="Аватар {{ target_user.username }}" width="50px">
-        <!-- Если фото не грузится, проверь urls (должно прибавляться staitc ... и load static в шаблоне)-->
         <p>Обо мне: {{ target_user.about_user|linebreaksbr}}</p>
 
         {% if chat %}
             <a href="{% url 'private_chat' chat.id %}" class="button">Написать сообщение</a>
-        {% else %}
-            <p>Это ваш собственный профиль. Чат не нужен.</p>
         {% endif %}
 
         
     </div>
 
-</body>
-</html>
+{% endblock %}  
+
+

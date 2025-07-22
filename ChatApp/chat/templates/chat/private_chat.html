@@ -1,22 +1,29 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="{% static 'chat/style.css' %}">
-    <title>Чат с {{ other_user.username }}</title>
-</head>
-<body>
-    <h1>Чат с {{ other_user.username }}</h1>
-    <div id="chat-log" style="border: 1px solid #ccc; height: 300px; overflow-y: scroll; padding: 10px;">
-        {% for message in messages %}
-            <p><strong>{{ message.author.username }}:</strong> {{ message.content }}</p>
-        {% empty %}
-            <p>Сообщений пока нет.</p>
-        {% endfor %}
+{% extends 'chat/header_template.html' %}
+{% block content %}
+
+
+
+    <header>
+        Чат с {{ other_user.username }}
+        <a href="{% url 'profile' other_user.username %}">Посмотреть профиль</a>
+    </header>
+    <div class="container">
+        <div class="chat-box" id="chat-log">
+            {% for message in messages %}
+                <div class="message {% if message.author == request.user %}self{% else %}other{% endif %}">
+                    <strong>{{ message.author.username }}:</strong> {{ message.content }}
+                    <p>{{message.timestamp}}</p>
+                </div>
+            {% empty %}
+                <p>Сообщений пока нет.</p>
+            {% endfor %}
+        </div>
+
+        <form class="send-message" id="send-message-form">
+            <input id="message-input" type="text" placeholder="Type your message" style="width: 400px;">
+        <button id="send-button">Отправить</button>
+        </form>
     </div>
-    <br>
-    <input id="message-input" type="text" placeholder="Type your message" style="width: 400px;">
-    <button id="send-button">Отправить</button>
 
     <script>
         const private_id = "{{ chat.id }}";
@@ -55,5 +62,4 @@
             }
         };
     </script>
-</body>
-</html>
+{% endblock %}

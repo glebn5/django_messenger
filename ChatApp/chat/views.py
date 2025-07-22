@@ -67,6 +67,8 @@ class LogView(LoginView):
         return reverse_lazy('main_page')
     
 def main_page(request):
+    if not request.user.is_authenticated:
+        return redirect("login_user")
     render(request, 'chat/mainPage.html',)
 
 
