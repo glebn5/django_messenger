@@ -5,12 +5,48 @@
 
     <form method="POST" class="block-auth">
         {%csrf_token%}
-        <p><label class="f-label" for="{{ form.username.id_for_label }}">{{form.username.label}}: </label>{{ form.username }}</p>
-        <p><label class="f-label" for="{{ form.email.id_for_label }}">{{form.email.label}}: </label>{{ form.email }}</p>
-        <p><label class="f-label" for="{{ form.password1.id_for_label }}">{{form.password1.label}}: </label>{{ form.password1 }}</p>
-        <p><label class="f-label" for="{{ form.password2.id_for_label }}">{{form.password2.label}}: </label>{{ form.password2 }}</p>
+        <!-- Username Field -->
+        <div class="form-group">
+            <label for="id_username" class="form-label">Username</label>
+            <input type="text" name="username" id="id_username" class="form-control" 
+                   required autofocus placeholder="Enter username">
+            {% if form.username.errors %}
+                <div class="error-message">{{ form.username.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <!-- Email Field -->
+        <div class="form-group">
+            <label for="id_email" class="form-label">Email</label>
+            <input type="email" name="email" id="id_email" class="form-control" 
+                   required placeholder="Enter email">
+            {% if form.email.errors %}
+                <div class="error-message">{{ form.email.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <!-- Password Field -->
+        <div class="form-group">
+            <label for="id_password1" class="form-label">Password</label>
+            <input type="password" name="password1" id="id_password1" class="form-control" 
+                   required placeholder="Create password">
+            {% if form.password1.errors %}
+                <div class="error-message">{{ form.password1.errors }}</div>
+            {% endif %}
+        </div>
+        
+        <!-- Password Confirmation Field -->
+        <div class="form-group">
+            <label for="id_password2" class="form-label">Confirm Password</label>
+            <input type="password" name="password2" id="id_password2" class="form-control" 
+                   required placeholder="Repeat password">
+            {% if form.password2.errors %}
+                <div class="error-message">{{ form.password2.errors }}</div>
+            {% endif %}
+        </div>
         <div class="form__block-submit"><input type="submit" value="Save"></div>
 
     </form>
-    <a href="{% url 'login_user' %}">Login</a>
+
+    <a href="{% url 'login_user' %}" class="button-acc">Login <img class="acc" src="/media/images/login.png" alt=""></a>
 {% endblock %}

@@ -1,11 +1,19 @@
 {% extends 'chat/header_template.html' %}
 {% block content %}
 
-
+    <h1>You can log in to your account here</h1>
     <form method="post">
         {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Login</button>
+        <div class="form-group">
+            <label for="id_username">Username</label>
+            <input type="text" name="username" class="form-control" id="id_username" required>
+        </div>
+        <div class="form-group">
+            <label for="id_password">Password</label>
+            <input type="password" name="password" class="form-control" id="id_password" required>
+        </div>
+        <button type="submit" class="button-acc">Login <img class="acc" src="/media/images/login.png" alt=""></button>
     </form>
-    <a href="{% url 'register' %}">Register</a>
+    <h2>Don't you have an account?</h2>
+    <a href="{% url 'register' %}" class="button-acc">Register <img class="acc" src="/media/images/register.png" alt=""></a>
 {% endblock %}

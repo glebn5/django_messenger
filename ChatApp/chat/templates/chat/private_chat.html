@@ -4,6 +4,10 @@
 
 
     <header>
+        {% if target_user.avatar.url != None %}
+            <img src="{{ target_user.avatar.url }}" alt="Аватар {{ target_user.username }}" class="avatar">
+            <!-- Если фото не грузится, проверь urls (должно прибавляться staitc ... и load static в шаблоне)-->
+        {% endif %}
         Чат с {{ other_user.username }}
         <a href="{% url 'profile' other_user.username %}">Посмотреть профиль</a>
     </header>

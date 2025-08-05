@@ -10,16 +10,22 @@
 <body>
 
     {% if request.user.is_authenticated %}
-        <h1>Hello {{ request.user }}</h1>
-        <h2>Here is your profile: <a href="{% url 'profile' request.user.username %}">here</a></h2>
-        <form method="post" action="{% url 'logout_user' %}">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
+        <div class="container">
+            <div class="flex">
+                <h1>Hi <a href="{% url 'profile' request.user.username %}">{{ request.user }}</a></h1>
+                <form method="post" action="{% url 'logout_user' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button-acc"><img class="acc" src="/media/images/exit.png" alt=""></button>
+                </form>
+            </div>
+            
+            
+        </div>
     {% endif %}
-
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 
 </body>
 </html>
